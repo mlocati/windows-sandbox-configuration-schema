@@ -1,0 +1,34 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - main
+    tags-ignore:
+      - "**"
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Setup NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      -
+        name: Checkout
+        uses: actions/checkout@v4
+      -
+        name: Install NodeJS dependencies
+        run: npm -C test ci
+      -
+        name: Check XSD
+        run: npm -C test run-script check-xsd
+      -
+        name: Check XML
+        run: npm -C test run-script check-xml

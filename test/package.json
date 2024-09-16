@@ -1,0 +1,14 @@
+{
+  "name": "test",
+  "description": "Tests",
+  "author": "Michele Locati <michele@locati.it>",
+  "license": "MIT",
+  "dependencies": {
+    "fast-xml-parser": "^4.5.0",
+    "xsd-schema-validator": "^0.9.0"
+  },
+  "scripts": {
+    "check-xsd": "node check-xsd.js",
+    "check-xml": "node check-xml.js"
+  }
+}

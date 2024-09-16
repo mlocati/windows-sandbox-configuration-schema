@@ -1,0 +1,43 @@
+name: Create release
+
+on:
+  create:
+    tags:
+      - "*"
+
+permissions:
+  contents: write
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Check tag
+        id: check-tag
+        if: github.event_name == 'create' && github.event.ref_type == 'tag'
+        run: |
+          if printf '%s' '${{ github.ref }}' | grep -Eq '^refs/tags/(v\.?)?([0-9]+\.[0-9]+\.[0-9]+)$'; then
+            VERSION="$(printf '%s' '${{ github.ref }}' | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+$')"
+            printf 'Detected version: %s\n' "$VERSION"
+            printf 'version=%s\n' "$VERSION" >>"$GITHUB_OUTPUT"
+          else
+            printf '%s does NOT represent a version-like tag\n' '${{ github.ref }}'
+          fi
+      -
+        name: Checkout
+        if: steps.check-tag.outputs.version
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      -
+        name: Create release
+        if: steps.check-tag.outputs.version
+        uses: softprops/action-gh-release@v2
+        with:
+          name: v${{ steps.check-tag.outputs.version }}
+          draft: false
+          prerelease: false
+          fail_on_unmatched_files: true
+          files: |
+            wsb.xsd

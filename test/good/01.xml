@@ -1,0 +1,30 @@
+<Configuration
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../wsb.xsd"
+>
+    <vGPU>Enable</vGPU>
+    <Networking>Enable</Networking>
+    <MappedFolders>
+        <MappedFolder>
+            <HostFolder>C:\Host\Path1</HostFolder>
+        </MappedFolder>
+        <MappedFolder>
+            <HostFolder>C:\Host\Path2</HostFolder>
+            <ReadOnly>true</ReadOnly>
+        </MappedFolder>
+        <MappedFolder>
+            <HostFolder>C:\Host\Path3</HostFolder>
+            <SandboxFolder>G:\Guest\Path3</SandboxFolder>
+            <ReadOnly>false</ReadOnly>
+        </MappedFolder>
+    </MappedFolders>
+    <LogonCommand>
+        <Command>command to be invoked</Command>
+    </LogonCommand>
+    <AudioInput>Enable</AudioInput>
+    <VideoInput>Disable</VideoInput>
+    <ProtectedClient>Enable</ProtectedClient>
+    <PrinterRedirection>Enable</PrinterRedirection>
+    <ClipboardRedirection>Disable</ClipboardRedirection>
+    <MemoryInMB>1234</MemoryInMB>
+</Configuration>
